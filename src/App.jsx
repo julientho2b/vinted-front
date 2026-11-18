@@ -10,16 +10,16 @@ function App() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchData = async () => {
-    const response = await axios.get(
-      "https://lereacteur-vinted-api.herokuapp.com/offers",
-    );
-    // console.log(response.data);
-    setData(response.data);
-    setIsLoading(false);
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        "https://lereacteur-vinted-api.herokuapp.com/offers",
+      );
+      // console.log(response.data);
+      setData(response.data);
+      setIsLoading(false);
+    };
+
     fetchData();
   }, []);
 
@@ -30,8 +30,8 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} data={data} setData={setData} />
-          <Route path="/offer" element={<Offer />} />
+          <Route path="/" element={<Home data={data} />} />
+          <Route path="/offer/:id" element={<Offer data={data} />} />
         </Routes>
       </Router>
     </>
