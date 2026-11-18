@@ -1,0 +1,67 @@
+/* ============================================ */
+/*                  HEADER                  */
+/* ============================================ */
+header .container {
+  width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 120px;
+}
+
+header .input {
+  align-self: flex-start;
+  width: 630px;
+  height: 40px;
+  background-color: #f5f6f7;
+  border: none;
+  border-radius: 5px;
+  padding-left: 20px;
+}
+
+header .input:focus {
+  outline: none;
+}
+
+header img {
+  width: 80px;
+  height: 30px;
+  object-fit: cover;
+}
+
+header button {
+  border: none;
+  border-radius: 5px;
+  width: 113px;
+  height: 28px;
+  font-size: 12px;
+}
+.button-header {
+  display: flex;
+  gap: 20px;
+}
+.login {
+  background-color: white;
+  border: 1px solid #38b1ba;
+  color: #38b1ba;
+}
+.sell {
+  background-color: #38b1ba;
+  color: white;
+}
+
+/* ============================================ */
+/*                  HERO                  */
+/* ============================================ */
+
+.hero {
+  background-color: grey;
+  height: 450px;
+}
