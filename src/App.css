@@ -1,6 +1,9 @@
 /* ============================================ */
 /*                  HEADER                  */
 /* ============================================ */
+body {
+  font-family: regular;
+}
 header .container {
   width: 1280px;
   margin: 0 auto;
@@ -9,19 +12,13 @@ header .container {
   align-items: center;
 }
 
-.container {
-  width: 1280px;
-  margin: 0 auto;
-}
-
 header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   height: 120px;
 }
 
 header .input {
+  margin-top: 20px;
   align-self: flex-start;
   width: 630px;
   height: 40px;
@@ -74,6 +71,11 @@ header button {
 /* ============================================ */
 /*                  OFFER-HOME                  */
 /* ============================================ */
+
+.container {
+  width: 1280px;
+  margin: 0 auto;
+}
 
 section.container {
   display: flex;
@@ -189,4 +191,8 @@ section.container {
   align-items: center;
   gap: 10px;
   margin-bottom: 40px;
+}
+
+.logout {
+  background-color: #c2175b;
 }
