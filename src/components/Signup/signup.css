@@ -16,6 +16,11 @@ section h1 {
   text-align: center;
 }
 
+.span-newsletter {
+  line-height: 16px;
+  color: #a1a1a1;
+}
+
 .login-input {
   background-color: white;
   color: #cbcccd;

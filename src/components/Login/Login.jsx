@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import "../Login/login.css";
@@ -11,7 +11,7 @@ const Login = ({ setLogin }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const fetchData = async () => {
+  const handleSubmit = async () => {
     try {
       const response = await axios.post(
         "https://lereacteur-vinted-api.herokuapp.com/user/login",
@@ -20,12 +20,14 @@ const Login = ({ setLogin }) => {
           password: password,
         },
       );
-      setIsLoading(true);
-      console.log(response.data);
 
+      console.log(response.data);
       Cookies.set("token", response.data.token);
+      setLogin(true);
+      return true;
     } catch (error) {
-      console.error(error.response?.data || error.message);
+      setErrorMessage("Email et/ou mot de pass incorrect");
+      return false;
     }
   };
 
@@ -40,10 +42,12 @@ const Login = ({ setLogin }) => {
             onSubmit={async (event) => {
               event.preventDefault();
 
-              await fetchData();
+              const success = await handleSubmit();
               setIsLoading(false);
-              setErrorMessage("Le password et/ou l'email est incorrect");
-              navigate("/");
+
+              if (success) {
+                navigate("/");
+              }
             }}
           >
             <div className="login-input">
@@ -71,16 +75,8 @@ const Login = ({ setLogin }) => {
               />
               {errorMessage ? <p className="red">{errorMessage}</p> : null}
             </div>
-            <button
-              onClick={() => {
-                setLogin(true);
-              }}
-            >
-              Se connecter
-            </button>
-            <a href="http://localhost:5173/signup">
-              Pas encore de compte ? Inscris-toi !
-            </a>
+            <button>Se connecter</button>
+            <Link to="/signup">Pas encore de compte ? Inscris-toi !</Link>
           </form>
         </div>
       </section>

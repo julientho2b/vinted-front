@@ -3,8 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import "../Signup/signup.css";
+import { Link } from "react-router-dom";
 
-const Signup = () => {
+const Signup = ({ setLogin }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +14,7 @@ const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const fetchData = async () => {
+  const handleSubmit = async () => {
     try {
       const response = await axios.post(
         "https://lereacteur-vinted-api.herokuapp.com/user/signup",
@@ -27,9 +28,12 @@ const Signup = () => {
       console.log(response.data);
 
       Cookies.set("token", response.data.token);
-      setIsLoading(true);
+      setLogin(true);
     } catch (error) {
-      console.error(error.response?.data || error.message);
+      setErrorMessage("Cette adresse email est déjà utilisée");
+      return false;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -48,10 +52,12 @@ const Signup = () => {
                   "Le password doit faire entre 5 et 10 caractères",
                 );
               } else {
-                await fetchData();
+                const success = await handleSubmit();
 
-                setErrorMessage("");
-                navigate("/");
+                if (success) {
+                  setErrorMessage("");
+                  navigate("/");
+                }
               }
             }}
           >
@@ -105,7 +111,9 @@ const Signup = () => {
                   setNewsletter(event.target.checked);
                 }}
               />
-              <span>S'inscrire à notre newsletter</span>
+              <span className="span-newsletter">
+                S'inscrire à notre newsletter
+              </span>
             </div>
             <p className="p-login">
               En m'inscrivant je confirme avoir lu et accepté les Termes &
@@ -113,9 +121,7 @@ const Signup = () => {
               avoir au moins 18 ans.
             </p>
             <button>S'inscrire</button>
-            <a href="http://localhost:5173/login">
-              Tu as déjà un compte ? Connecte-toi !
-            </a>
+            <Link to="/login">Tu as déjà un compte ? Connecte-toi !</Link>
           </form>
         </div>
       </section>

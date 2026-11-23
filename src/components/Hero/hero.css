@@ -1,0 +1,44 @@
+/* ============================================ */
+/*                  HERO                  */
+/* ============================================ */
+
+.hero {
+  background-color: grey;
+  height: 450px;
+}
+
+.image-container img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+}
+
+.image-container {
+  position: relative;
+}
+
+.carre-blanc {
+  position: absolute;
+  top: 74px;
+  left: 310px;
+  width: 410px;
+  height: 270px;
+  background-color: white;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 0 0 2px #1111113d;
+}
+
+.carre-blanc h2 {
+  font-size: 34px;
+  margin-top: 25px;
+}
+
+.carre-blanc button {
+  margin-top: 32px;
+  width: 190px;
+  height: 45px;
+}

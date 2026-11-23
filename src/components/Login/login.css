@@ -43,3 +43,8 @@ a {
   text-decoration: none;
   color: #38b1ba;
 }
+
+.red {
+  margin-top: 10px;
+  color: red;
+}

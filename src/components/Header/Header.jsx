@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import Logo from "../assets/logo.png";
+import Logo from "../../assets/logo.png";
 import Cookies from "js-cookie";
+import "./header.css";
 
 const Header = ({ login, setLogin }) => {
   return (
@@ -34,8 +35,15 @@ const Header = ({ login, setLogin }) => {
             </Link>
           </div>
         )}
-
-        <button className="sell">Vends tes articles</button>
+        {login ? (
+          <Link to="/publish">
+            <button className="sell">Vends tes articles</button>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <button className="sell">Vends tes articles</button>
+          </Link>
+        )}
       </div>
     </header>
   );

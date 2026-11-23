@@ -1,15 +1,32 @@
 import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const Offer = ({ data }) => {
+const Offer = () => {
   const params = useParams();
+  const [offer, setOffer] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (!data) {
-    return <p>Chargement...</p>;
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://lereacteur-vinted-api.herokuapp.com/offer/${params.id}`,
+        );
+        setOffer(response.data);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const offer = data.offers.find((element) => element._id === params.id);
+    fetchData();
+  }, [params.id]);
 
-  return (
+  return isLoading ? (
+    <p>Chargement...</p>
+  ) : (
     <main>
       <div className="background">
         <section className="container">
@@ -17,44 +34,59 @@ const Offer = ({ data }) => {
             <div className="image-offer">
               {offer.product_pictures.slice(0, 1).map((element) => {
                 return (
-                  <img key={element.public_id} src={element.url} alt="offer" />
+                  <img
+                    key={element.public_id}
+                    src={element.secure_url}
+                    alt="offer"
+                  />
                 );
               })}
             </div>
             <article className="article">
-              <p className="p-price">{offer.product_price}</p>
-              <p className="p-description">
-                <span className="span-box">MARQUE </span>
-                {offer.product_details[0]?.MARQUE}
-              </p>
-              <p className="p-description">
-                <span className="span-box">TAILLE </span>
-                {offer.product_details[1]?.TAILLE}
-              </p>
-              <p className="p-description">
-                <span className="span-box">ETAT</span>
-                {offer.product_details[2]?.ETAT}
-              </p>
-              <p className="p-description">
-                <span className="span-box">COULEUR </span>
-                {offer.product_details[3]?.COULEUR}
-              </p>
-              <p className="p-description">
-                <span className="span-box">EMPLACEMENT </span>
-                {offer.product_details[4]?.EMPLACEMENT}
-              </p>
-              <p className="border-bottom">
-                <span className="span-box">MODES DE PAIEMENT </span>
-                {offer.product_details[5]?.["MODES DE PAIEMENT"]}
-              </p>
+              <p className="p-price">{offer.product_price} €</p>
+              <ul className="ul-offer">
+                <li>
+                  <span>MARQUE</span>
+                  <span> {offer.product_details[0]?.MARQUE}</span>
+                </li>
+                <li>
+                  <span>TAILLE</span>
+                  <span> {offer.product_details[1]?.TAILLE}</span>
+                </li>
+                <li>
+                  <span>ETAT</span>
+                  <span> {offer.product_details[2]?.ETAT}</span>
+                </li>
+                <li>
+                  <span>COULEUR</span>
+                  <span> {offer.product_details[3]?.COULEUR}</span>
+                </li>
+                <li>
+                  <span>EMPLACEMENT</span>
+                  <span> {offer.product_details[4]?.EMPLACEMENT}</span>
+                </li>
+                <li className="last-li">
+                  <span>MODES DE PAIEMENT</span>
+                  <span>
+                    {" "}
+                    {offer.product_details[5]?.["MODES DE PAIEMENT"]}
+                  </span>
+                </li>
+              </ul>
+
               <p className="name">{offer.product_name}</p>
               <p className="description">{offer.product_description}</p>
               <div className="picto-name">
-                <img
-                  className="picto"
-                  src={offer.owner.account.avatar.url}
-                  alt="avatar"
-                />
+                {offer.owner.account.avatar?.url ? (
+                  <img
+                    className="picto"
+                    src={offer.owner.account.avatar?.url}
+                    alt="avatar"
+                  />
+                ) : (
+                  <p className="empty-avatar"></p>
+                )}
+
                 <p>{offer.owner.account.username}</p>
               </div>
               <button className="buy-button">Acheter</button>
