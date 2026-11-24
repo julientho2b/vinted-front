@@ -2,20 +2,19 @@ import "./publish.css";
 import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 
-const Publish = () => {
+const Publish = ({ login }) => {
   const [picture, setPicture] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
-  const [status, setStatus] = useState("");
-  const [location, setLocation] = useState("");
+  const [condition, setCondition] = useState("");
+  const [city, setCity] = useState("");
   const [price, setPrice] = useState("");
-  const [exchange, setExchange] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -28,11 +27,10 @@ const Publish = () => {
     formData.append("brand", brand);
     formData.append("size", size);
     formData.append("color", color);
-    formData.append("status", status);
-    formData.append("location", location);
+    formData.append("conditon", condition);
+    formData.append("city", city);
     formData.append("price", price);
     formData.append("picture", picture);
-    formData.append("exchange", String(exchange));
 
     const token = Cookies.get("token");
     try {
@@ -52,7 +50,7 @@ const Publish = () => {
     }
   };
 
-  return (
+  return login ? (
     <main>
       <div className="background">
         <div className="container">
@@ -146,10 +144,10 @@ const Publish = () => {
                 <input
                   type="text"
                   id="status"
-                  value={status}
+                  value={condition}
                   placeholder="Neuf avec étiquette"
                   onChange={(event) => {
-                    setStatus(event.target.value);
+                    setCondition(event.target.value);
                   }}
                 />
               </div>
@@ -158,10 +156,10 @@ const Publish = () => {
                 <input
                   type="text"
                   id="location"
-                  value={location}
+                  value={city}
                   placeholder="ex: Paris"
                   onChange={(event) => {
-                    setLocation(event.target.value);
+                    setCity(event.target.value);
                   }}
                 />
               </div>
@@ -180,14 +178,7 @@ const Publish = () => {
                 />
               </div>
               <div className="checkbox">
-                <input
-                  type="checkbox"
-                  id="exchange"
-                  checked={exchange}
-                  onChange={(event) => {
-                    setExchange(event.target.checked);
-                  }}
-                />
+                <input type="checkbox" id="exchange" />
                 <span>Je suis intéressé(e) par les échanges</span>
               </div>
             </div>
@@ -198,6 +189,8 @@ const Publish = () => {
         </div>
       </div>
     </main>
+  ) : (
+    <Navigate to="/login" />
   );
 };
 

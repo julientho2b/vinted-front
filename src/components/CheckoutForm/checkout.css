@@ -1,0 +1,44 @@
+.checkout {
+  background-color: white;
+  margin: 30px auto 0 auto;
+  width: 600px;
+  padding: 20px 25px 20px 25px;
+}
+
+.checkout h2 {
+  margin-bottom: 30px;
+}
+
+.commande {
+  display: flex;
+  flex-direction: column;
+}
+
+.background {
+  height: 100%;
+}
+
+.commande p,
+.commande-total p {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.commande-total p {
+  margin: 20px 0 50px 0;
+  border-top: 1px solid lightgrey;
+  padding-top: 40px;
+}
+
+.commande-p {
+  margin-bottom: 50px;
+}
+
+.commande-p span {
+  font-weight: bold;
+}
+
+.pay-button {
+  background-color: #40c06d;
+}

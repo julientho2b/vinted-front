@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import "../Signup/signup.css";
+import "./signup.css";
 import { Link } from "react-router-dom";
 
 const Signup = ({ setLogin }) => {
